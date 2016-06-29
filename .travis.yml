@@ -6,8 +6,9 @@ cache:
 install:
   - pip install --upgrade pip # Upgrade pip to get wheel caching
   - pip install -e .
+  - pip install -r requirements-dev.txt
   
 
 script:
-  
+  - py.test registry_inspector
 
