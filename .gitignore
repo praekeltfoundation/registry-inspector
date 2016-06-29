@@ -81,6 +81,7 @@ celerybeat-schedule
 # virtualenv
 venv/
 ENV/
+ve/
 
 # Spyder project settings
 .spyderproject
@@ -89,7 +90,6 @@ ENV/
 .ropeproject
 
 # Output files from program
-*.txt
+top10Largest.txt
+layerUsage.txt
 
-# Virtual env
-ve/
