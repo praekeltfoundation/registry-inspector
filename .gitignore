@@ -90,4 +90,6 @@ ve/
 .ropeproject
 
 # Output files from program
-*.txt
+top10Largest.txt
+layerUsage.txt
+
