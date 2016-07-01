@@ -15,5 +15,6 @@ class RegistryClient(object):
         return self._call_registry('GET', '/v2/%s/tags/list' % (name,)).json()
 
     def get_manifests(self, name, tag):
-        return self._call_registry('GET', '/v2/%s/manifests/%s' %
-         (name, tag,)).json()
+        return self._call_registry(
+            'GET', '/v2/%s/manifests/%s' %
+            (name, tag,)).json()
