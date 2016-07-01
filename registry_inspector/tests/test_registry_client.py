@@ -1,21 +1,22 @@
-from registry_inspector.registry_client import get_catalog
-from registry_inspector.registry_client import get_tags
-from registry_inspector.registry_client import get_manifests
+from registry_inspector.registry_client import RegistryClient
 
 
 def test_get_catalog():
     registry = 'https://my.registry.local:5000'
-    assert ('repositories' in get_catalog(registry))
+    client = RegistryClient(registry)
+    assert ('repositories' in client.get_catalog())
 
 
 def test_get_tags():
     registry = 'https://my.registry.local:5000'
+    client = RegistryClient(registry)
     name = 'ubuntu'
-    assert ('tags' in get_tags(registry, name))
+    assert ('tags' in client.get_tags(name))
 
 
 def test_get_manifests():
     registry = 'https://my.registry.local:5000'
+    client = RegistryClient(registry)
     name = 'ubuntu'
     tag = 'latest'
-    assert ('fsLayers' in get_manifests(registry, name, tag))
+    assert ('fsLayers' in client.get_manifests(name, tag))
