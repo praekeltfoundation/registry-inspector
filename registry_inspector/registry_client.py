@@ -1,12 +1,14 @@
 def get_catalog(registry):
-    #TODO: Replace this with a real implementation
-    x = {'repositories':'cool'}
+    # TODO: Replace this with a real implementation
+    x = {'repositories': 'cool'}
     return x
+
 
 def get_tags(registry, name):
-    x = {'tags' : 'cool'}
+    x = {'tags': 'cool'}
     return x
 
+
 def get_manifests(registry, name, tag):
-    x =  {'fsLayers' : 'cool'}
+    x = {'fsLayers': 'cool'}
     return x
