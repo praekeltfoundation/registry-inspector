@@ -6,3 +6,7 @@ def get_catalog(registry):
 def get_tags(registry, name):
     x = {'tags' : 'cool'}
     return x
+
+def get_manifests(registry, name, tag):
+    x =  {'fsLayers' : 'cool'}
+    return x
