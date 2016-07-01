@@ -19,7 +19,7 @@ setup(
     ],
     keywords='Docker registry image layer inspector',
     packages=find_packages(),
-    install_requires=['requests'],
+    install_requires=['requests','responses'],
     #extras_require={},
     #package_data={},
     #data_files[]
