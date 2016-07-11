@@ -26,7 +26,7 @@ def test_get_tags():
 
 
 @responses.activate
-def test_get_manifests():
+def test_get_manifest():
     registry = 'http://localhost:5000'
     client = RegistryClient(registry)
     name = 'ubuntu'
