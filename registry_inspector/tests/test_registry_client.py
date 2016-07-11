@@ -94,3 +94,11 @@ def test_get_digest_length():
 
     resp = client.get_digest_length(name, digest)
     assert resp == '32'
+
+
+def test_log(capsys):
+    registry = 'http://localhost:5000'
+    client = RegistryClient(registry)
+    client.log("log testing")
+    out, err = capsys.readouterr()
+    assert err == "log testing\n"
