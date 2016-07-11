@@ -45,7 +45,7 @@ def test_get_manifest():
                            {"blobSum": "sha256:5ba4f30e5bea63dcc2e7054b8b4f4"
                                        "1ab1e5fcc7db0a88fc7"
                                        "9359b890bcfe2258"}]})
-    resp = client.get_manifests(name, tag)['fsLayers']
+    resp = client.get_manifest(name, tag)['fsLayers']
     assert resp == {"fsLayers": [{"blobSum": "sha256:a3ed95caeb02ffe68cdd9fd"
                                              "84406680ae93d633cb1642d00e8a7c"
                                              "22955b46d4"},
