@@ -6,11 +6,9 @@ class RegistryInspector(object):
         self.registry = registry
 
     def get_layer_dict(self, image, manifest):
-        #digest values
         client = RegistryClient(self.registry)
         layer_dict = {}
         blobSumValues = [layer['blobSum'] for layer in manifest['fsLayers']]
         for value in blobSumValues:
             layer_dict[value] = int(client.get_digest_length(image, value))
-		
         return layer_dict
