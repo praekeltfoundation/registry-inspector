@@ -28,7 +28,6 @@ def test_get_tags():
 @responses.activate
 def test_get_manifests():
     registry = 'http://localhost:5000'
-
     client = RegistryClient(registry)
     name = 'ubuntu'
     tag = 'latest'
@@ -62,3 +61,36 @@ def test_get_manifests():
                                  {"blobSum": "sha256:5ba4f30e5bea63dcc2e7054"
                                              "b8b4f41ab1e5fcc7db0a88fc79359b"
                                              "890bcfe2258"}]}['fsLayers']
+
+
+@responses.activate
+def test_get_digest_length():
+    def headers_callback(request):
+        headers = {
+                            "Accept-Ranges": "bytes",
+                            "Cache-Control": "max-age=31536000",
+                            "Content-Length": "32",
+                            "Content-Type": "application/octet-stream",
+                            "Docker-Content-Digest": "sha256:a3ed95caeb02ffe6"
+                                                     "8cdd9fd84406680ae93d633"
+                                                     "cb16422d00e8a7c"
+                                                     "22955b46d4",
+                            "Docker-Distribution-Api-Version": "registry/2.0",
+                            "Etag": "sha256: a3ed95caeb02ffe68cdd9fd84406680a"
+                                    "e93d633cb16422d00e8a7c22955b46d4",
+                            "X-Content-Type-Options": "nosniff",
+                            "Date": "Thu, 07 Jul 2016 13:14:44 GMT"}
+        body = ""
+        return 200, headers, body
+    registry = 'http://localhost:5000'
+    client = RegistryClient(registry)
+    name = 'ubuntu'
+    digest = 'sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633' + \
+             'cb16422d00e8a7c22955b46d4'
+
+    responses.add_callback(
+        responses.HEAD, registry + '/v2/%s/blobs/%s' %
+        (name, digest,), callback=headers_callback)
+
+    resp = client.get_digest_length(name, digest)
+    assert resp == '32'

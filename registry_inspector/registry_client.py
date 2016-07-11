@@ -18,3 +18,7 @@ class RegistryClient(object):
         return self._call_registry(
             'GET', '/v2/%s/manifests/%s' %
             (name, tag,)).json()
+
+    def get_digest_length(self, name, digest):
+        r = self._call_registry('HEAD', '/v2/%s/blobs/%s' % (name, digest,))
+        return r.headers['Content-Length']
