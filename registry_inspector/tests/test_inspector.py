@@ -1,5 +1,6 @@
 from registry_inspector.inspector import RegistryInspector
 import responses
+import json
 
 
 def layer_callback(sha256, content_length):
@@ -32,3 +33,29 @@ def test_get_layer_dict():
     inspector = RegistryInspector(registry)
     resp = inspector.get_layer_dict('ubuntu', manifest)
     assert resp == {"sha256:"+BLOB1: 32, "sha256:"+BLOB2: 680}
+
+def manifest_callback(name, tag):
+    def cb(request):
+        body = {
+                "schemaVersion": 1,
+                "name": name,
+                "tag": tag,
+        }
+        return 200, "", json.dumps(body)
+    return cb
+
+
+@responses.activate
+def test_get_tag_manifests():
+    registry = 'http://localhost:5000'
+    image = 'ubuntu'
+    tag_list = ['xenial','latest']
+    for tag in tag_list:
+        responses.add_callback(
+            responses.GET, registry + '/v2/%s/manifests/%s' %
+            (image, tag,), callback=manifest_callback(image, tag))
+    manifest_dic = {"xenial":{"schemaVersion": 1, "name": "ubuntu", "tag": "xenial"},
+                    "latest":{"schemaVersion": 1, "name": "ubuntu", "tag": "latest"}} 
+    inspector = RegistryInspector(registry)
+    resp = inspector.get_tag_manifests(image, tag_list)
+    assert resp == manifest_dic
