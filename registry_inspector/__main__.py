@@ -1,5 +1,5 @@
-from registry_client import RegistryClient
-from inspector import RegistryInspector
+from registry_inspector.registry_client import RegistryClient
+from registry_inspector.inspector import RegistryInspector
 import argparse
 import math
 

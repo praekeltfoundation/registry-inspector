@@ -1,4 +1,4 @@
-from registry_client import RegistryClient
+from registry_inspector.registry_client import RegistryClient
 
 
 class RegistryInspector(object):
